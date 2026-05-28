@@ -1,25 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 public class Timer : MonoBehaviour
 {
-    public Text timerText;
-    private float currentTime = 0f;
-    public float MaxTime = 100f;
+    public GameManager gameManager;
+    Text timerText;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         timerText = GetComponent<Text>();
+        StartCoroutine(TimerUpdate());
     }
-
-    // Update is called once per frame
-    void Update()
+    IEnumerator TimerUpdate()
     {
-        MaxTime -= Time.deltaTime;
+        int lastSecond = -1;
+        while (true)
+        {
+            int currentTime = 
+            Mathf.FloorToInt(gameManager.TimeLimit);
 
-        int minute = Mathf.FloorToInt(MaxTime/60);
-        int second = Mathf.FloorToInt(MaxTime%60);
+            if(currentTime !=lastSecond)
+            {
+                lastSecond = currentTime;
 
-        timerText.text = $"{minute:00}:{second:00}";
+                int minute = currentTime/60;
+                int second = currentTime%60;
+            
+            
+
+            timerText.text = $"{minute:00}:{second:00}";
+            }
+            yield return null;
+        }
     }
+
 }

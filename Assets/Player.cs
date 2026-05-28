@@ -17,7 +17,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(isMoving)
+        PlayerMove();
+
+
+    }
+    
+    void PlayerMove()
+    {
+         if(isMoving)
         {
             return;
         }
@@ -36,11 +43,8 @@ public class Player : MonoBehaviour
             Vector2 target = rb.position + dir * step;
             StartCoroutine(MoveTo(target));
         }
-
-
-
     }
-    
+
     IEnumerator MoveTo(Vector2 target)
     {
         isMoving = true;
@@ -64,5 +68,6 @@ public class Player : MonoBehaviour
 
     }
 
+   
 
 }

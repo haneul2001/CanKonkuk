@@ -746,8 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303bcbf64a464d54e8852051c9eedd9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
-  timerText: {fileID: 1497285177}
-  MaxTime: 100
+  gameManager: {fileID: 1794694467}
 --- !u!1 &1794694464
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +756,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1794694466}
-  - component: {fileID: 1794694465}
+  - component: {fileID: 1794694468}
+  - component: {fileID: 1794694467}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -765,20 +765,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1794694465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1794694464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4236777be19c0845840326dcdab68ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CreateMap
-  tilePrefab: {fileID: 8492851151751544894, guid: 8062d9a2a6d7d9e47b8ac5b4f9a52519, type: 3}
-  mapSize: 7
 --- !u!4 &1794694466
 Transform:
   m_ObjectHideFlags: 0
@@ -794,6 +780,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1794694467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794694464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426689268089f6f439fb3f01835c141f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  tileManager: {fileID: 1794694468}
+--- !u!114 &1794694468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794694464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11b4d4f4b048e2469f1ba14c5925cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileManager
+  tilePrefab: {fileID: 8492851151751544894, guid: 8062d9a2a6d7d9e47b8ac5b4f9a52519, type: 3}
+  mapSize: 7
+  activeTiles: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
