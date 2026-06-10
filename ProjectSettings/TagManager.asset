@@ -47,5 +47,8 @@ TagManager:
   - name: Player
     uniqueID: 4235181703
     locked: 0
+  - name: Grade
+    uniqueID: 1501277027
+    locked: 0
   m_RenderingLayers:
   - Default
