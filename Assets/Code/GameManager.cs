@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     float timeLimit;
 
     public TileManager tileManager;
+    public ScoreManager scoreManager;
+    bool isGameClear = false;
     [Header("타일 제거 변수")]
     int currentRemovedCount = 0;
     int totalTilesToRemove;
@@ -34,18 +36,33 @@ public class GameManager : MonoBehaviour
     public bool GameStarted => gameStarted;
     void Start()
     {
+        GameOverReason.hitF = false;
         Time.timeScale = 1f;
         timeLimit = maxTime;
 
-        totalTilesToRemove =
-            tileManager.mapSize * tileManager.mapSize - 1;
-
         StartCoroutine(StartCountdown());
     }
-
     void Update()
     {
+        
         if(!gameStarted)return;
+
+        if(!isGameClear&& scoreManager.currentScore >= scoreManager.maxScore)
+        {
+            if(scoreManager.averageGPA >= 4.0f)
+            {
+                Debug.Log("게임 클리어");
+                GameClear();
+            }
+            else
+            {
+                GameOverReason.hitF = false;
+                Debug.Log("학점 부족");
+                GameOver();
+            }
+            return;
+        }
+
         if(Input.GetKeyDown(KeyCode.R)) ReloadScene();
         
         timeLimit -= Time.deltaTime;
@@ -108,22 +125,53 @@ public class GameManager : MonoBehaviour
     }
     void GameClear()
     {
-        SceneManager.LoadScene("GameClear");
+        if(isGameClear) return;
+        isGameClear = true;
+        StartCoroutine(GameClearRoutine());
     }
-    IEnumerator StartCountdown()
+   
+IEnumerator StartCountdown()
+{
+    yield return null; // TileManager.Start() 끝날 때까지 대기
+
+    totalTilesToRemove =
+        tileManager.activeTiles.Count - 1;
+
+    Debug.Log($"activeTiles : {tileManager.activeTiles.Count}");
+    Debug.Log($"totalTilesToRemove : {totalTilesToRemove}");
+
+    countdownText.gameObject.SetActive(true);
+
+    countdownText.text = "3";
+    yield return new WaitForSeconds(1f);
+
+    countdownText.text = "2";
+    yield return new WaitForSeconds(1f);
+
+    countdownText.text = "1";
+    yield return new WaitForSeconds(1f);
+
+    countdownText.text = "시작!";
+    yield return new WaitForSeconds(0.5f);
+
+    countdownText.gameObject.SetActive(false);
+
+    gameStarted = true;
+    player.canMove = true;
+}    IEnumerator GameClearRoutine()
     {
-        countdownText.gameObject.SetActive(true);
-        countdownText.text = "3";
+        float duration = 1f;
+        float elapsed =0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            Color c = fadeImage.color;
+            c.a = Mathf.Lerp(0f, 1f, elapsed / duration);
+            fadeImage.color = c;
+            yield return null;
+        }
         yield return new WaitForSeconds(1f);
-        countdownText.text = "2";
-        yield return new WaitForSeconds(1f);
-        countdownText.text = "1";
-        yield return new WaitForSeconds(1f);
-        countdownText.text = "시작!";
-        yield return new WaitForSeconds(0.5f);
-        countdownText.gameObject.SetActive(false);
-        gameStarted = true;
-        player.canMove = true;
+        SceneManager.LoadScene("GameClear");
     }
 
 }

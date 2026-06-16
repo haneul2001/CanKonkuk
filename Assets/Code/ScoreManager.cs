@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
-
+    public float averageGPA =0f;
     [Header("점수 UI")]
     public Text gpaText;
     public Text CurrentScoreText;
@@ -45,6 +45,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (score == 0f)
         {
+            GameOverReason.hitF = true;
             GameOver();
             return;
         }
@@ -53,7 +54,7 @@ public class ScoreManager : MonoBehaviour
         gradeCount++;
         currentScore += 3;//한 과목 당 3학점
 
-        float averageGPA = totalScore / gradeCount;
+        averageGPA = totalScore / gradeCount;
 
         gpaText.text = "평균 학점 : " + averageGPA.ToString("F2");
         CurrentScoreText.text = "현재 학점 : " + currentScore.ToString() + " / " + maxScore.ToString();
