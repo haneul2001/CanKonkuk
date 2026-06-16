@@ -5,24 +5,27 @@ public class Grade : MonoBehaviour
     public float scoreValue;
     public float speed = 5f;
     public Vector2 direction;
+    public GameObject hitEffectPrefab;
 
     void Update()
     {
         transform.Translate(direction * speed * Time.deltaTime);
 
-        // 3. ZÃà ´ë½Å YÃà(À§¾Æ·¡)À» °Ë»çÇÏµµ·Ï ¼öÁ¤ ¿Ï·á
+        
         if (Mathf.Abs(transform.position.x) > 10f || Mathf.Abs(transform.position.y) > 10f)
         {
             Destroy(gameObject);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)     // ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ ½Ã ¿ÀºêÁ§Æ® »èÁ¦ ÇÔ¼ö
+    void OnTriggerEnter2D(Collider2D other)    
     {
         if (other.CompareTag("Player"))
         {
+            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity); //íŒŒí‹°í´ ìƒì„±
+
             ScoreManager.instance.AddGrade(scoreValue);
-            Destroy(gameObject);                // Ãæµ¹ ¹°Ã¼°¡ ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÀÏ ½Ã »èÁ¦
+            Destroy(gameObject);
         }
     }
 }

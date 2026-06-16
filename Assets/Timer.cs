@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
             
             
 
-            timerText.text = $"{minute:00}:{second:00}";
+            timerText.text = $"남은 시간 : {minute:00}:{second:00}";
             }
             yield return null;
         }

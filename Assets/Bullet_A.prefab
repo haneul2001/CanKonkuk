@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1501277027
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -108,6 +108,7 @@ MonoBehaviour:
   scoreValue: 4
   speed: 5
   direction: {x: 0, y: 0}
+  hitEffectPrefab: {fileID: 4760353132138620853, guid: 25bbb7f86d8aea54a97145d3d4717b56, type: 3}
 --- !u!61 &-2987813222425390749
 BoxCollider2D:
   m_ObjectHideFlags: 0

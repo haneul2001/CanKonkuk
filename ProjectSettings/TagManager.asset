@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -47,8 +48,14 @@ TagManager:
   - name: Player
     uniqueID: 4235181703
     locked: 0
+  - name: Item
+    uniqueID: 2314338747
+    locked: 0
   - name: Grade
     uniqueID: 1501277027
+    locked: 0
+  - name: Effect
+    uniqueID: 1248059861
     locked: 0
   m_RenderingLayers:
   - Default

@@ -1,42 +1,96 @@
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.SceneManagement;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    public TextMeshProUGUI gpaText;
+    [Header("ì ìˆ˜ UI")]
+    public Text gpaText;
+    public Text CurrentScoreText;
 
-    private float totalScore = 0f;      // È¹µæ Á¡¼öÀÇ ÇÕ
-    private int gradeCount = 0;         // È¹µæ ¼ºÀû °³¼ö
+    [Header("ê²Œì„ ì˜¤ë²„")]
+    public Image fadeImage;
+
+    public int maxScore = 132;//132 í•™ì 
+    public int currentScore = 0;
+    public float totalScore = 0f; 
+    public int gradeCount = 0;
+
+    bool isGameOver = false;
 
     void Awake()
     {
-        if (instance == null) instance = this;      // ½Ì±ÛÅæ ÆĞÅÏ
+        if (instance == null)
+            instance = this;
     }
 
     void Start()
     {
-        gpaText.text = "Score : 0.00";      // ½ÃÀÛ ½Ã Á¡¼ö 0Á¡À¸·Î Ç¥½Ã
+        gpaText.text = "í‰ê·  í•™ì  : 0.00";
+
+        if (fadeImage != null)
+        {
+            Color c = fadeImage.color;
+            c.a = 0f;
+            fadeImage.color = c;
+        }
+
+        
     }
-    public void AddGrade(float score)       // ¼ºÀû È¹µæ ½Ã
+
+    public void AddGrade(float score)
     {
         if (score == 0f)
         {
-            GameOver();         // ´êÀº ¼ºÀûÀÌ FÇĞÁ¡(0Á¡)ÀÌ¸é °ÔÀÓ¿À¹ö
+            GameOver();
             return;
         }
 
-        totalScore += score;    // Á¡¼ö ÇÕ»ê
-        gradeCount++;           // È¹µæÇÑ ¼ºÀû °³¼ö Ãß°¡
+        totalScore += score;
+        gradeCount++;
+        currentScore += 3;//í•œ ê³¼ëª© ë‹¹ 3í•™ì 
 
-        float averageGPA = totalScore / gradeCount;                 // Æò±Õ Á¡¼ö ½Ç½Ã°£ °è»ê
+        float averageGPA = totalScore / gradeCount;
 
-        gpaText.text = "Score : " + averageGPA.ToString("F2");      // Æò±Õ Á¡¼ö UI ¹İ¿µ
+        gpaText.text = "í‰ê·  í•™ì  : " + averageGPA.ToString("F2");
+        CurrentScoreText.text = "í˜„ì¬ í•™ì  : " + currentScore.ToString() + " / " + maxScore.ToString();
     }
 
-    void GameOver()
+    public void GameOver()
     {
-        Time.timeScale = 0f; // FÇĞÁ¡À» ¹Ş¾Æ °ÔÀÓ ¿À¹ö(°ÔÀÓ ÁßÁö)
+        if (isGameOver) return;
+
+        isGameOver = true;
+        StartCoroutine(GameOverRoutine());
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            Color c = fadeImage.color;
+            c.a = Mathf.Lerp(0f, 1f, elapsed / duration);
+
+            fadeImage.color = c;
+
+            yield return null;
+        }
+
+        
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.5f);
+        SceneManager.LoadScene("GameOver");
+    }
+    void GameClear()
+    {
+        SceneManager.LoadScene("GameClear");
     }
 }
