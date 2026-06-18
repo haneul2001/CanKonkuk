@@ -1611,7 +1611,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -130}
+  m_AnchoredPosition: {x: -80, y: -130}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1148133098
@@ -1665,10 +1665,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GradeDisplay
   gradeImage: {fileID: 1148133098}
-  aPlus: {fileID: 0}
-  a: {fileID: 0}
-  bPlus: {fileID: 0}
-  b: {fileID: 0}
+  aPlus: {fileID: 21300000, guid: ec649760a913e094397895e4e7f3cf23, type: 3}
+  a: {fileID: 21300000, guid: c4f90e781ae41654ebf43782bfa3d7c1, type: 3}
+  bPlus: {fileID: 21300000, guid: 7e15f85f19a02f344a8786832e7d1a77, type: 3}
+  b: {fileID: 21300000, guid: 36e1c8a79e8670747b3bf8b41d559c8f, type: 3}
 --- !u!1 &1165463668
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,7 +2626,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ef7b1a339c9a5a540bd4aedb6060b516, type: 3}
-    m_FontSize: 300
+    m_FontSize: 250
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
