@@ -2591,12 +2591,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7649f80be08e5d4a95551dad92c8590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GradeSpawner
-  gradePrefabs:
-  - {fileID: 7893413119645637122, guid: 99dd93cb3423d4d4db264693223f0ac8, type: 3}
-  - {fileID: 4156146241228935316, guid: 55db09a20b7351648a1a81d0b26c3b2c, type: 3}
-  - {fileID: 8629319677627461539, guid: 35039699243464e4b8c72196b9ff53ca, type: 3}
-  - {fileID: 359191883530664691, guid: d9b29ed39c382a049939e697fad8fb3e, type: 3}
-  - {fileID: 917767820174825471, guid: 41733917f703b03448242c8b760f3115, type: 3}
+  gradeList:
+  - gradeName: A+
+    gradePrefab: {fileID: 7893413119645637122, guid: 99dd93cb3423d4d4db264693223f0ac8, type: 3}
+    probability: 0.25
+  - gradeName: A
+    gradePrefab: {fileID: 4156146241228935316, guid: 55db09a20b7351648a1a81d0b26c3b2c, type: 3}
+    probability: 0.25
+  - gradeName: B+
+    gradePrefab: {fileID: 8629319677627461539, guid: 35039699243464e4b8c72196b9ff53ca, type: 3}
+    probability: 0.2
+  - gradeName: B
+    gradePrefab: {fileID: 359191883530664691, guid: d9b29ed39c382a049939e697fad8fb3e, type: 3}
+    probability: 0.2
+  - gradeName: F
+    gradePrefab: {fileID: 917767820174825471, guid: 41733917f703b03448242c8b760f3115, type: 3}
+    probability: 0.1
   spawnInterval: 0.5
   gameManager: {fileID: 1794694467}
   tileManager: {fileID: 1794694468}
