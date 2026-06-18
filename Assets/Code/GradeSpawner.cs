@@ -30,30 +30,23 @@ public class GradeSpawner : MonoBehaviour
     {
         if (gradePrefabs == null || gradePrefabs.Length == 0) return;
 
-        // ���� ����: Ÿ�� �Ŵ����� ������� �ʾҴٸ� �۵����� ����
         if (tileManager == null) return;
 
-        // 1. Ÿ���� ���۵Ǵ� ���� ù ��° ��(min)�� ���մϴ�.
         int minLine = -(tileManager.mapSize / 2);
 
-        // 2. Random.Range�� ������ ���ڸ� ���� �����Ƿ�, �����ٿ� ��ü �� ũ�⸦ �״�� �����ݴϴ�.
         int maxLine = minLine + tileManager.mapSize;
         int halfSize = tileManager.mapSize / 2;
         int side = Random.Range(0, 4);
 
-        // 3. ��Ȯ�ϰ� Ÿ�� ������ŭ�� ���� �̾Ƴ��ϴ�!
         int gridLine = Random.Range(minLine, maxLine);
 
-        // ȭ�� �� ���� �Ÿ��� ������ �����ϰ� �����ص� �����ϴ�. (���Ѵٸ� mapSize�� ��� ����)
         float dynamicOffset = (tileManager.mapSize / 2) + 3f;
 
-        // 4. �� ũ�Ⱑ Ŀ���� ���� ��ġ�� �־������� �ڵ� ��� (+3f�� ȭ�� �� ���� ����)
         dynamicOffset = halfSize + 3f;
 
         Vector2 spawnPos = Vector2.zero;
         Vector2 moveDir = Vector2.zero;
 
-        // 5. ������ ��� dynamicOffset�� ����ϵ��� ����
         switch (side)
         {
             case 0:
