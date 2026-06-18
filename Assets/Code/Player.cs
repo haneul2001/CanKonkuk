@@ -3,6 +3,14 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip bookSound;
+    public AudioClip sojuSound;
+    public SpriteRenderer sr;
+    public Sprite frontPlayer;
+    public Sprite backPlayer;
+    public Sprite rightPlayer;
+    public Sprite leftPlayer;
     Rigidbody2D rb;
     public TileManager tileManager;
     //한칸 부드럽게 이동하는 시간
@@ -42,59 +50,59 @@ public class Player : MonoBehaviour
         bookCount--;
         useBookMove = true;
         Debug.Log($"남은 책 : {bookCount}");
+        audioSource.PlayOneShot(bookSound);
     }
-    void PlayerMove()
+  void PlayerMove()
+{
+    if(isMoving)
     {
-         if(isMoving)
-        {
-            return;
-        }
-
-        Vector2 dir = Vector2.zero;
-        if(Input.GetKeyDown(KeyCode.UpArrow)){ dir = Vector2.up;}
-        
-        else if(Input.GetKeyDown(KeyCode.DownArrow)){dir = Vector2.down;}
-      
-        else if(Input.GetKeyDown(KeyCode.LeftArrow)){dir = Vector2.left;}
-        
-        else if(Input.GetKeyDown(KeyCode.RightArrow)){dir = Vector2.right;}
-
-        if(isDrunk)
-        {
-            dir *= -1;
-        }
-    
-        if(dir != Vector2.zero)
-        {
-            float currentStep = step;
-            if (useBookMove)
-            {
-                currentStep = 2f;
-                useBookMove = false;
-            }
-            Vector2 target = rb.position +dir*currentStep;
-            
-            Vector2Int targetGrid = 
-                Vector2Int.RoundToInt(target);
-            if (tileManager.IsTileActive(targetGrid))
-            {
-                StartCoroutine(MoveTo(target));
-            }
-            
-        }
+        return;
     }
-        public void MobileMove(Vector2 dir)
+
+    Vector2 dir = Vector2.zero;
+
+    if(Input.GetKeyDown(KeyCode.UpArrow))
     {
-        if (isMoving)
-        {
-            return;
-        }
+        dir = Vector2.up;
+    }
+    else if(Input.GetKeyDown(KeyCode.DownArrow))
+    {
+        dir = Vector2.down;
+    }
+    else if(Input.GetKeyDown(KeyCode.LeftArrow))
+    {
+        dir = Vector2.left;
+    }
+    else if(Input.GetKeyDown(KeyCode.RightArrow))
+    {
+        dir = Vector2.right;
+    }
 
-        if (isDrunk)
-        {
-            dir *= -1;
-        }
+    if(isDrunk)
+    {
+        dir *= -1;
+    }
 
+    // 실제 이동 방향 기준 스프라이트 변경
+    if(dir == Vector2.up)
+    {
+        sr.sprite = backPlayer;
+    }
+    else if(dir == Vector2.down)
+    {
+        sr.sprite = frontPlayer;
+    }
+    else if(dir == Vector2.left)
+    {
+        sr.sprite = leftPlayer;
+    }
+    else if(dir == Vector2.right)
+    {
+        sr.sprite = rightPlayer;
+    }
+
+    if(dir != Vector2.zero)
+    {
         float currentStep = step;
 
         if (useBookMove)
@@ -113,6 +121,55 @@ public class Player : MonoBehaviour
             StartCoroutine(MoveTo(target));
         }
     }
+}
+       public void MobileMove(Vector2 dir)
+{
+    if (isMoving)
+    {
+        return;
+    }
+
+    if (isDrunk)
+    {
+        dir *= -1;
+    }
+
+    // 실제 이동 방향 기준 스프라이트 변경
+    if(dir == Vector2.up)
+    {
+        sr.sprite = backPlayer;
+    }
+    else if(dir == Vector2.down)
+    {
+        sr.sprite = frontPlayer;
+    }
+    else if(dir == Vector2.left)
+    {
+        sr.sprite = leftPlayer;
+    }
+    else if(dir == Vector2.right)
+    {
+        sr.sprite = rightPlayer;
+    }
+
+    float currentStep = step;
+
+    if (useBookMove)
+    {
+        currentStep = 2f;
+        useBookMove = false;
+    }
+
+    Vector2 target = rb.position + dir * currentStep;
+
+    Vector2Int targetGrid =
+        Vector2Int.RoundToInt(target);
+
+    if (tileManager.IsTileActive(targetGrid))
+    {
+        StartCoroutine(MoveTo(target));
+    }
+}
     public void DrinkSoju()
     {
         if(drunkCoroutine != null)
@@ -120,6 +177,7 @@ public class Player : MonoBehaviour
             StopCoroutine(drunkCoroutine);
         }
         drunkCoroutine = StartCoroutine(DrunkCoroutine());
+        audioSource.PlayOneShot(sojuSound);
     }
     IEnumerator DrunkCoroutine()
     {

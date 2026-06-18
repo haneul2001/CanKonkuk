@@ -5,6 +5,8 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 public class ScoreManager : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip getGradeSound;
     public static ScoreManager instance;
     public float averageGPA =0f;
     [Header("점수 UI")]
@@ -58,6 +60,7 @@ public class ScoreManager : MonoBehaviour
 
         gpaText.text = "평균 학점 : " + averageGPA.ToString("F2");
         CurrentScoreText.text = "현재 학점 : " + currentScore.ToString() + " / " + maxScore.ToString();
+        audioSource.PlayOneShot(getGradeSound);
     }
 
     public void GameOver()

@@ -41,6 +41,7 @@ public class GradeSpawner : MonoBehaviour
 
     void SpawnGrade()
     {
+
         // 리스트가 비어있으면 실행하지 않음
         if (gradeList == null || gradeList.Length == 0) return;
         if (tileManager == null) return;
@@ -51,6 +52,7 @@ public class GradeSpawner : MonoBehaviour
         int side = Random.Range(0, 4);
         int gridLine = Random.Range(minLine, maxLine);
         float dynamicOffset = halfSize + 3f;
+
 
         Vector2 spawnPos = Vector2.zero;
         Vector2 moveDir = Vector2.zero;
